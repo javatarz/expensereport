@@ -6,10 +6,7 @@ enum class ExpenseType {
     DINNER, BREAKFAST, CAR_RENTAL
 }
 
-class Expense {
-    lateinit var type: ExpenseType
-    var amount: Int = 0
-}
+data class Expense(val type: ExpenseType, val amount: Int = 0)
 
 class ExpenseReport(
     private val printer: (String) -> Any = ::println,
@@ -33,7 +30,8 @@ class ExpenseReport(
                 ExpenseType.CAR_RENTAL -> expenseName = "Car Rental"
             }
 
-            val mealOverExpensesMarker = if (expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000) "X" else " "
+            val mealOverExpensesMarker =
+                if (expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000) "X" else " "
 
             printer(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker)
 
