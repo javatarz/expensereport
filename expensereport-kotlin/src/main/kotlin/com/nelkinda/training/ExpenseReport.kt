@@ -2,10 +2,6 @@ package com.nelkinda.training
 
 import java.util.Date
 
-data class Expense(val type: ExpenseType, val amount: Int = 0) {
-    fun overLimitMarker(): String = if (type.isOverLimit(amount)) "X" else " "
-}
-
 class ExpenseReport(
     private val printer: (String) -> Any = ::println,
     private val dateProvider: () -> Date = { Date() }
