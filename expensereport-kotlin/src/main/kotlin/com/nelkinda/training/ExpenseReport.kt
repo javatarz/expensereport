@@ -2,13 +2,15 @@ package com.nelkinda.training
 
 import java.util.Date
 
-enum class ExpenseType(val reportName: String) {
-    DINNER("Dinner"), BREAKFAST("Breakfast"), CAR_RENTAL("Car Rental")
+enum class ExpenseType(val reportName: String, private val highExpenseLimit: Int? = null) {
+    DINNER("Dinner", 5000), BREAKFAST("Breakfast", 1000), CAR_RENTAL("Car Rental");
+
+    fun isOverLimit(expenseAmount: Int): Boolean =
+        if (highExpenseLimit == null) false else expenseAmount > highExpenseLimit
 }
 
 data class Expense(val type: ExpenseType, val amount: Int = 0) {
-    fun overLimitMarker(): String =
-        if (type == ExpenseType.DINNER && amount > 5000 || type == ExpenseType.BREAKFAST && amount > 1000) "X" else " "
+    fun overLimitMarker(): String = if (type.isOverLimit(amount)) "X" else " "
 }
 
 class ExpenseReport(
