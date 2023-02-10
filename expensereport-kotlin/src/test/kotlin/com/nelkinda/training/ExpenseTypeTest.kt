@@ -13,6 +13,12 @@ internal class ExpenseTypeTest {
         assertEquals(expected, type.isOverLimit(expenseAmount))
     }
 
+    @ParameterizedTest
+    @MethodSource("isMealTypeTestCases")
+    internal fun shouldCheckMealType(type: ExpenseType, expected: Boolean) {
+        assertEquals(expected, type.isMealType())
+    }
+
     companion object {
         @JvmStatic
         fun expenseLimitTestCases() = listOf(
@@ -22,6 +28,13 @@ internal class ExpenseTypeTest {
             Arguments.of(DINNER, 20000, true),
             Arguments.of(CAR_RENTAL, 300, false),
             Arguments.of(CAR_RENTAL, 30000, false),
+        )
+
+        @JvmStatic
+        fun isMealTypeTestCases() = listOf(
+            Arguments.of(DINNER, true),
+            Arguments.of(BREAKFAST, true),
+            Arguments.of(CAR_RENTAL, false),
         )
     }
 }

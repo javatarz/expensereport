@@ -1,6 +1,6 @@
 package com.nelkinda.training
 
-import java.util.Date
+import java.util.*
 
 class ExpenseReport(
     private val printer: (String) -> Any = ::println,
@@ -14,7 +14,7 @@ class ExpenseReport(
         }
 
         val (mealExpenses, otherExpenses) = expenses
-            .partition { it.type == ExpenseType.DINNER || it.type == ExpenseType.BREAKFAST }
+            .partition { it.type.isMealType() }
         val mealExpenseTotal = mealExpenses.sumOf { it.amount }
         val total = mealExpenseTotal + otherExpenses.sumOf { it.amount }
 
